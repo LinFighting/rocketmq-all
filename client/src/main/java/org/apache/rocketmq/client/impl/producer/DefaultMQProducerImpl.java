@@ -605,7 +605,7 @@ public class DefaultMQProducerImpl implements MQProducerInner {
                             case ONEWAY:
                                 return null;
                             case SYNC:
-                                // 同步方法调用失败的话，换一个Broker，并跳过本次循环再次尝试
+                                // 同步方法调用失败的话，换一个Broker，并跳过本次循环再次尝试，测试
                                 if (sendResult.getSendStatus() != SendStatus.SEND_OK) {
                                     if (this.defaultMQProducer.isRetryAnotherBrokerWhenNotStoreOK()) {
                                         continue;
