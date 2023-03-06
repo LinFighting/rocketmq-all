@@ -240,9 +240,12 @@ public class BrokerController {
 
         if (result) {
             try {
+                // brokerStatsManager：监控数据统计管理
+                // messageArrivingListener：消息拉取长轮询模式消息到达监听器
                 this.messageStore =
                     new DefaultMessageStore(this.messageStoreConfig, this.brokerStatsManager, this.messageArrivingListener,
                         this.brokerConfig);
+                //  DLeger主要是通过raft协议实现主从平滑切换，开启底层采用dLedgerCommitLog进行CommitLog记录。
                 if (messageStoreConfig.isEnableDLegerCommitLog()) {
                     DLedgerRoleChangeHandler roleChangeHandler = new DLedgerRoleChangeHandler(this, (DefaultMessageStore) messageStore);
                     ((DLedgerCommitLog)((DefaultMessageStore) messageStore).getCommitLog()).getdLedgerServer().getdLedgerLeaderElector().addRoleChangeHandler(roleChangeHandler);
